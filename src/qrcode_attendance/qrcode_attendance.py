@@ -9,6 +9,7 @@ import openpyxl
 
 # logging.basicConfig(filename='log.txt', level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.disable()
 
 cap = cv2.VideoCapture(0)
 cap.set(3, 640)
