@@ -1,6 +1,5 @@
 import logging
 import datetime
-import pprint
 
 import cv2
 import numpy as np
