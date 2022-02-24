@@ -123,7 +123,6 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-src/qrcode_attendance/log.text
 src/qrcode_attendance/sample qrcodes
 src/qrcode_attendance/GARSHS_ATTENDANCE.xlsx
 src/qrcode_attendance/.mypy_cache
