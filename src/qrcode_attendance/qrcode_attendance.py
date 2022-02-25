@@ -8,28 +8,28 @@ from pyzbar.pyzbar import decode
 import openpyxl
 
 # logging.basicConfig(filename='log.txt', level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
-logging.basicConfig(
-    level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s"
-)
+logging.basicConfig(level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s")
 logging.disable(logging.DEBUG)
 
-with open('excel_filename.txt') as file:
+with open("excel_filename.txt") as file:
     excelFilename = file.read().strip()
     logging.debug(f"'{excelFilename}'")
 
-print("Program started.\n")
-print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-print("     ??? INSTRUCTIONS ???")
-print("Please don't manipulate the excel file while the program is running!")
-print("Press Ctrl+C to end the program.")
-print("If you would like to change the layout of the excel file, please notify the programmer: Adrian Luke Labasan (G11-Oxygen)")
-print("If you would like to change the filename of the excel file, please change it in the excel_filename.txt file before renaming the excel file.")
-print()
-print("     !!!     NOTE     !!!")
-print("Before running the program, ensure that:")
-print("/   The excel file is closed.")
-print("/   The excel file is not manipulated in any way beforehand.")
-print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n")
+print(
+    """Program started.\n
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     ??? INSTRUCTIONS ???
+print("Please don't manipulate the excel file while the program is running!
+Press Ctrl+C to end the program.
+If you would like to change the layout of the excel file, please notify the programmer: Adrian Luke Labasan (G11-Oxygen)
+If you would like to change the filename of the excel file, please change it in the excel_filename.txt file before renaming the excel file.
+
+     !!!     NOTE     !!!
+Before running the program, ensure that:
+/   The excel file is closed.")
+/   The excel file is not manipulated/changed in any way beforehand.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"""
+)
 
 print("Opening the webcam... please wait\n")
 cap = cv2.VideoCapture(0)
@@ -113,14 +113,14 @@ except KeyboardInterrupt:
             ws = wb.active
             rowsDict, columnsDict = getData(ws)
         except PermissionError:
-            """ permissionError_shelfFIle = shelve.open('PermissionError_backup')
+            """permissionError_shelfFIle = shelve.open('PermissionError_backup')
             for date in attendance:
                 permissionError_shelfFIle[date] = attendance[date]
-            permissionError_shelfFIle.close() """
-            print('\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
-            print('The excel file is open on another window. Close the excel file to let the program manipulate it.')
-            print('Press enter if done closing the window.')
-            print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+            permissionError_shelfFIle.close()"""
+            print("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+            print("The excel file is open on another window. Close the excel file to let the program manipulate it.")
+            print("Press enter if done closing the window.")
+            print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
             continueProgram = input()
             continue
         else:
@@ -129,9 +129,7 @@ except KeyboardInterrupt:
                 columnIndex = 0
                 for column_index in columnsDict:
                     logging.debug(f"column_index = {column_index}")
-                    logging.debug(
-                        f"columnsDict[column_index][1] = {columnsDict[column_index][1]}"
-                    )
+                    logging.debug(f"columnsDict[column_index][1] = {columnsDict[column_index][1]}")
                     if date == columnsDict[column_index][1]:
                         columnIndex = column_index
                         logging.debug(f"located: columnIndex = {columnIndex}")
@@ -153,4 +151,4 @@ except KeyboardInterrupt:
 
             wb.save(excelFilename)
             break
-print('\nExcel file updated.\nProgram ended.')
+print("\nExcel file updated.\nProgram ended.")
