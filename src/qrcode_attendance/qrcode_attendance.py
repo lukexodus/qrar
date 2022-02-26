@@ -95,7 +95,6 @@ cap.set(3, 640)
 cap.set(4, 480)
 
 attendance = {}
-logging.debug(f"TEMP attendance -> {attendance}\n")
 
 
 def getData(ws):
@@ -105,7 +104,6 @@ def getData(ws):
         rowsDict.setdefault(i + 1, [])
         for cell in row:
             rowsDict[i + 1].append(cell.value)
-    logging.debug(f"rowsDict -> {rowsDict}\n")
 
     columns = list(ws.columns)
     columnsDict = {}
@@ -113,7 +111,6 @@ def getData(ws):
         columnsDict.setdefault(i + 1, [])
         for cell in column:
             columnsDict[i + 1].append(cell.value)
-    logging.debug(f"columnsDict -> {columnsDict}\n")
     return rowsDict, columnsDict
 
 
@@ -165,7 +162,6 @@ except KeyboardInterrupt:
             ws['A2'].value = 'Name'
             ws['A2'].font = Font(size=16)
 
-        logging.debug(f"attendance -> {attendance}")
 
         rowsDict, columnsDict = getData(ws)
 
@@ -194,28 +190,16 @@ except KeyboardInterrupt:
             continue
         else:
             for date in attendance:
-                logging.debug(f"date = {date}")
                 columnIndex = 0
                 for column_index in columnsDict:
-                    logging.debug(f"column_index = {column_index}")
-                    logging.debug(f"columnsDict[column_index][1] = {columnsDict[column_index][1]}")
                     if date == columnsDict[column_index][1]:
                         columnIndex = column_index
-                        logging.debug(f"located: columnIndex = {columnIndex}")
-                logging.debug(f"after: columnIndex = {columnIndex}")
 
                 for name in attendance[date]:
-                    logging.debug(f"name = {name}")
                     rowIndex = 0
                     for row_index in rowsDict:
-                        logging.debug(f"row_index = {row_index}")
-                        logging.debug(f"rowsDict[row_index][0] = {rowsDict[row_index][0]}")
                         if name == rowsDict[row_index][0]:
                             rowIndex = row_index
-                            logging.debug(f"located: rowIndex = {rowIndex}")
-                    logging.debug(f"after: rowIndex = {rowIndex}")
-                    logging.debug(f"cell: {columnIndex}, {rowIndex}")
-                    logging.debug(f"cell: {attendance[date][name]}")
                     ws.cell(row=rowIndex, column=columnIndex).value = attendance[date][name]
 
             wb.save(excelFilename)
