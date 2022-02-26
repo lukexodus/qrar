@@ -15,45 +15,79 @@ logging.basicConfig(level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %
 logging.disable(logging.DEBUG)
 
 print(
-    """Program started.\n
+    """QRCODE ATTENDANCE RECORDING AUTOMATION PROGRAM
+Programmed and maintained by
+Adrian Luke Labasan | G11-Oxygen S.Y. 2021-2022 | CONTACT: zionexodus7@protonmail.com\n
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      ??? INSTRUCTIONS ???
 * Place the excel file at the same directory where the program (qrcode_attendance.py) is located.
 * If first used, the excel file should be completely blank i.e. not changed in any way.
 * Press Ctrl+C to end the program.
-* If you would like to change the layout/template of the excel file, please notify first the programmer: Adrian Luke Labasan (G11-Oxygen) <zionexodus7@protonmail.com>
+* If you would like to change the layout of the excel file, please notify first the programmer.
 
-     !!!     NOTE     !!!
-* Please don't manipulate the excel file while the program is running!
+     !!!   WARNING    !!!
+* Don't manipulate the excel file when the program is running!
+* Before running the program, ensure that:
+   (1) The excel file is closed.
+   (2) The excel file is not manipulated/changed in any way beforehand except by the program.
 
-Before running the program, ensure that:
-/   The excel file is closed.
-/   The excel file is not manipulated/changed in any way beforehand except by the program.
+     ***    NOTE      ***
+* The program only records the initial time a qrcode is scanned during the day.
+* The order of the names are based on the time the qrcodes are first scanned. If you would like to sort the names by their section, you can do so in Excel: Select data range (include the times recorded) -> Data tab -> SORT
+
+If you want to suggest additional functionalities or modifications to the program, feel free to contact the programmer :)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"""
 )
 
-excelFiles = []
-for file in os.listdir('.'):
-    if file.endswith('.xlsx'):
-        excelFiles.append(file)
+def getExcelFiles():
+    excelFiles = []
+    for file in os.listdir('.'):
+        if file.endswith('.xlsx'):
+            excelFiles.append(file)
+    return excelFiles
 
-noInitialFile = False
+while True:
+    excelFiles = getExcelFiles()
 
-if len(excelFiles) == 0:
-    print('No xlsx files found in the directory.')
-    print('Please enter a filename for the excel file to be created.')
-    print('Press enter if you would like the default name [GARSHS_ATTENDANCE.xlsx]')
-    excelFilename = pyinputplus.inputStr(prompt='> ')
-    if not excelFilename.endswith('.xlsx'):
-        excelFilename += '.xlsx'
-    noInitialFile = True
-elif len(excelFiles) == 1:
-    excelFilename = excelFiles[0]
-    print(f'Found {excelFilename}')
-    print('Exit the program (Ctrl+C) if this is not the excel file you want.')
-else:
-    print('Multiple xlsx files found in the directory.')
-    excelFilename = pyinputplus.inputMenu(excelFiles, numbered=True)
+    noInitialFile = False
+
+    if len(excelFiles) == 0:
+        print('No xlsx files found in the directory.')
+        print('Please enter a filename for the excel file to be created.')
+        print('Press enter if you would like the default name [GARSHS_ATTENDANCE.xlsx]')
+        excelFilename = pyinputplus.inputStr(prompt='> ')
+        if not excelFilename.endswith('.xlsx'):
+            excelFilename += '.xlsx'
+        noInitialFile = True
+        break
+    elif len(excelFiles) == 1:
+        excelFilename = excelFiles[0]
+        print(f'Found {excelFilename}')
+        print('Exit the program (Ctrl+C) if this is not the excel file you want.')
+        break
+    elif len(excelFiles) == 2 and (excelFiles[0].startswith('~$') or excelFiles[1].startswith('~$')):
+        print('!!! The excel file is open in another window !!!')
+        print('Please close the excel file then press enter to continue.')
+        continueProgram = input('> ')
+        continue
+    else:
+        exelFileIsOpen = False
+        for file in os.listdir('.'):
+            if exelFileIsOpen:
+                break
+            if file.startswith('~$') and file.endswith('.xlsx'):
+                print('!!! An excel file is open in another window !!!')
+                print('Please close the excel file/s then press enter to continue.')
+                continueProgram = input('> ')
+                for file in os.listdir('.'):
+                    if file.startswith('~$') and file.endswith('.xlsx'):
+                        exelFileIsOpen = True
+                        break
+        if exelFileIsOpen:
+            continue
+        print('Multiple xlsx files found in the directory.')
+        excelFilename = pyinputplus.inputMenu(getExcelFiles(), numbered=True)
+        break
 
 print("\nOpening the webcam... please wait\n")
 cap = cv2.VideoCapture(0)
@@ -113,7 +147,7 @@ try:
                 2,
             )
 
-        cv2.imshow("GARSHS Attendance", img)
+        cv2.imshow("Please show your QR code to the webcam.", img)
         cv2.waitKey(1)
 except KeyboardInterrupt:
     while True:
@@ -131,7 +165,7 @@ except KeyboardInterrupt:
             ws['A2'].value = 'Name'
             ws['A2'].font = Font(size=16)
 
-        logging.debug(f"attendance -> {attendance}\n")
+        logging.debug(f"attendance -> {attendance}")
 
         rowsDict, columnsDict = getData(ws)
 

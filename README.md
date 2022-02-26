@@ -14,15 +14,17 @@ Quickstart Guide
 ----------------
 
 # INSTRUCTIONS #
-Please don't manipulate the excel file while the program is running!  
-Press Ctrl+C to end the program.  
-If you would like to change the layout of the excel file, please notify the programmer: Adrian Luke Labasan (G11-Oxygen)  
-If you would like to change the filename of the excel file, please change it in the excel_filename.txt file before renaming the excel file.  
+* Place the excel file at the same directory where the program (qrcode_attendance.py) is located.
+* If first used, the excel file should be completely blank i.e. not changed in any way.
+* Press Ctrl+C to end the program.
+* If you would like to change the layout/template of the excel file, please notify first the programmer: Adrian Luke Labasan (G11-Oxygen) <zionexodus7@protonmail.com>
 
 # NOTE #
-Before running the program, ensure that:  
-/   The excel file is closed.  
-/   The excel file is not manipulated in any way beforehand.  
+* Don't manipulate the excel file when the program is running!
+
+Before running the program, ensure that:
+/   The excel file is closed.
+/   The excel file is not manipulated/changed in any way beforehand except by the program.
 
 Contribute
 ----------
