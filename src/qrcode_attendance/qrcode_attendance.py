@@ -1,37 +1,61 @@
 import logging
 import datetime
 import shelve
+import os
 
 import cv2
 import numpy as np
 from pyzbar.pyzbar import decode
 import openpyxl
+from openpyxl.styles import Font
+import pyinputplus
 
 # logging.basicConfig(filename='log.txt', level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 logging.basicConfig(level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s")
 logging.disable(logging.DEBUG)
 
-with open("excel_filename.txt") as file:
-    excelFilename = file.read().strip()
-    logging.debug(f"'{excelFilename}'")
-
 print(
     """Program started.\n
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      ??? INSTRUCTIONS ???
-print("Please don't manipulate the excel file while the program is running!
-Press Ctrl+C to end the program.
-If you would like to change the layout of the excel file, please notify the programmer: Adrian Luke Labasan (G11-Oxygen)
-If you would like to change the filename of the excel file, please change it in the excel_filename.txt file before renaming the excel file.
+* Place the excel file at the same directory where the program (qrcode_attendance.py) is located.
+* If first used, the excel file should be completely blank i.e. not changed in any way.
+* Press Ctrl+C to end the program.
+* If you would like to change the layout/template of the excel file, please notify first the programmer: Adrian Luke Labasan (G11-Oxygen) <zionexodus7@protonmail.com>
 
      !!!     NOTE     !!!
+* Please don't manipulate the excel file while the program is running!
+
 Before running the program, ensure that:
-/   The excel file is closed.")
-/   The excel file is not manipulated/changed in any way beforehand.
+/   The excel file is closed.
+/   The excel file is not manipulated/changed in any way beforehand except by the program.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"""
 )
 
-print("Opening the webcam... please wait\n")
+excelFiles = []
+for file in os.listdir('.'):
+    if file.endswith('.xlsx'):
+        excelFiles.append(file)
+
+noInitialFile = False
+
+if len(excelFiles) == 0:
+    print('No xlsx files found in the directory.')
+    print('Please enter a filename for the excel file to be created.')
+    print('Press enter if you would like the default name [GARSHS_ATTENDANCE.xlsx]')
+    excelFilename = pyinputplus.inputStr(prompt='> ')
+    if not excelFilename.endswith('.xlsx'):
+        excelFilename += '.xlsx'
+    noInitialFile = True
+elif len(excelFiles) == 1:
+    excelFilename = excelFiles[0]
+    print(f'Found {excelFilename}')
+    print('Exit the program (Ctrl+C) if this is not the excel file you want.')
+else:
+    print('Multiple xlsx files found in the directory.')
+    excelFilename = pyinputplus.inputMenu(excelFiles, numbered=True)
+
+print("\nOpening the webcam... please wait\n")
 cap = cv2.VideoCapture(0)
 cap.set(3, 640)
 cap.set(4, 480)
@@ -93,8 +117,19 @@ try:
         cv2.waitKey(1)
 except KeyboardInterrupt:
     while True:
-        wb = openpyxl.load_workbook(excelFilename)
-        ws = wb.active
+        if noInitialFile:
+            wb = openpyxl.Workbook()
+            ws = wb.active
+        else:
+            wb = openpyxl.load_workbook(excelFilename)
+            ws = wb.active
+
+        if ws['A1'].value != '':
+            ws['A1'].value = 'Attendance'
+            ws['A1'].font = Font(size=20)
+        if ws['A2'].value != '':
+            ws['A2'].value = 'Name'
+            ws['A2'].font = Font(size=16)
 
         logging.debug(f"attendance -> {attendance}\n")
 
@@ -151,4 +186,5 @@ except KeyboardInterrupt:
 
             wb.save(excelFilename)
             break
-print("\nExcel file updated.\nProgram ended.")
+
+print(f"\nExcel file {'created' if noInitialFile else 'updated'}.\nProgram ended.")
