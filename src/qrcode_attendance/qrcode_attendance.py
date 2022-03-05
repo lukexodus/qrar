@@ -17,13 +17,13 @@ logging.disable(logging.DEBUG)
 print(
     """QRCODE ATTENDANCE RECORDING AUTOMATION PROGRAM
 Programmed and maintained by
-Adrian Luke Labasan | G11-Oxygen S.Y. 2021-2022 | CONTACT: zionexodus7@protonmail.com\n
+Adrian Luke Labasan | G11-Oxygen | CONTACT: zionexodus7@protonmail.com\n
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      ??? INSTRUCTIONS ???
 * Place the excel file at the same directory where the program (qrcode_attendance.py) is located.
-* If first used, the excel file should be completely blank i.e. not changed in any way.
+* If first used, the excel file should be completely blank i.e. no data added.
 * Press Ctrl+C to end the program.
-* If you would like to change the layout of the excel file, please notify first the programmer.
+* If you would like to change the layout of the excel file, please notify the programmer.
 
      !!!   WARNING    !!!
 * Don't manipulate the excel file when the program is running!
@@ -162,7 +162,6 @@ except KeyboardInterrupt:
             ws['A2'].value = 'Name'
             ws['A2'].font = Font(size=16)
 
-
         rowsDict, columnsDict = getData(ws)
 
         for date in attendance.keys():
@@ -182,11 +181,10 @@ except KeyboardInterrupt:
             for date in attendance:
                 permissionError_shelfFIle[date] = attendance[date]
             permissionError_shelfFIle.close()"""
-            print("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-            print("The excel file is open on another window. Close the excel file to let the program manipulate it.")
+            print("\n!!!  The excel file is open on another window  !!!")
+            print("Close the excel file to let the program manipulate it.")
             print("Press enter if done closing the window.")
-            print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-            continueProgram = input()
+            continueProgram = input('> ')
             continue
         else:
             for date in attendance:
@@ -205,4 +203,4 @@ except KeyboardInterrupt:
             wb.save(excelFilename)
             break
 
-print(f"\nExcel file {'created' if noInitialFile else 'updated'}.\nProgram ended.")
+print(f"\nExcel file {'created' if noInitialFile else 'updated'}.\nThank you. Have a good day :)")
