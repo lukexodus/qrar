@@ -11,6 +11,7 @@ from openpyxl.styles import Font
 import pyinputplus
 import ezsheets
 import smtplib
+from typing import List, Dict
 
 # logging.basicConfig(filename='log.txt', level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 logging.basicConfig(level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -113,8 +114,14 @@ def getData(ws):
             columnsDict[i + 1].append(cell.value)
     return rowsDict, columnsDict
 
+currentTime = datetime.datetime.now()
+date = currentTime.strftime("%a %Y/%m/%d")
 
-attendance = {}
+with shelve.open('backup') as backup:
+    if backup['attendance'][date] != {}:
+        attendance = backup['attendance']
+    else:
+        attendance = {}
 
 try:
     print("Webcam is running. You can now show your QR Code to the webcam.")
@@ -149,6 +156,10 @@ try:
         cv2.imshow("Please show your QR code to the webcam.", img)
         cv2.waitKey(1)
 except KeyboardInterrupt:
+    with shelve.open('backup') as backup:
+        backup['attendance'] = attendance
+        logging.debug(backup['attendance'])
+
     while True:
         if noInitialFile:
             wb = openpyxl.Workbook()
