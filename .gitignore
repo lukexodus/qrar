@@ -135,3 +135,4 @@ src/qrcode_attendance/credentials-sheets.json
 src/qrcode_attendance/token.json
 src/qrcode_attendance/token-drive.pickle
 src/qrcode_attendance/token-sheets.pickle
+src/qrcode_attendance/.vscode/
