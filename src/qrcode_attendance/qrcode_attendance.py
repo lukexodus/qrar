@@ -118,9 +118,10 @@ currentTime = datetime.datetime.now()
 date = currentTime.strftime("%a %Y/%m/%d")
 
 with shelve.open('backup') as backup:
-    if backup['attendance'][date] != {}:
-        attendance = backup['attendance']
-    else:
+    try:
+        if backup['attendance'][date] != {}:
+            attendance = backup['attendance']
+    except KeyError:
         attendance = {}
 
 try:
@@ -174,6 +175,12 @@ except KeyboardInterrupt:
         if ws['A2'].value != '':
             ws['A2'].value = 'Name'
             ws['A2'].font = Font(size=16)
+        if ws['B2'].value != '':
+            ws['B2'].value = 'Email'
+            ws['B2'].font = Font(size=16)
+        if ws['C2'].value != '':
+            ws['C2'].value = 'Phone #'
+            ws['C2'].font = Font(size=16)
 
         rowsDict, columnsDict = getData(ws)
 
@@ -214,6 +221,7 @@ except KeyboardInterrupt:
                     ws.cell(row=rowIndex, column=columnIndex).value = attendance[date][name]
 
             wb.save(excelFilename)
+
             break
 
 print(f"\nExcel file {'created' if noInitialFile else 'updated'}.\nThank you. Have a good day :)")
