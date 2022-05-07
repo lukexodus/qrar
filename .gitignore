@@ -126,3 +126,12 @@ dmypy.json
 src/qrcode_attendance/sample qrcodes
 src/qrcode_attendance/GARSHS_ATTENDANCE.xlsx
 src/qrcode_attendance/.mypy_cache
+src/qrcode_attendance/log.txt
+src/qrcode_attendance/backup.bak
+src/qrcode_attendance/backup.dat
+src/qrcode_attendance/backup.dir
+src/qrcode_attendance/credentials.json
+src/qrcode_attendance/credentials-sheets.json
+src/qrcode_attendance/token.json
+src/qrcode_attendance/token-drive.pickle
+src/qrcode_attendance/token-sheets.pickle
