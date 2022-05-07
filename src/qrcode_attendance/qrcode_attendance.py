@@ -9,10 +9,12 @@ from pyzbar.pyzbar import decode
 import openpyxl
 from openpyxl.styles import Font
 import pyinputplus
+import ezsheets
+import smtplib
 
 # logging.basicConfig(filename='log.txt', level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 logging.basicConfig(level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s")
-logging.disable(logging.DEBUG)
+# logging.disable(logging.DEBUG)
 
 print(
     """QRCODE ATTENDANCE RECORDING AUTOMATION PROGRAM
@@ -94,8 +96,6 @@ cap = cv2.VideoCapture(0)
 cap.set(3, 640)
 cap.set(4, 480)
 
-attendance = {}
-
 
 def getData(ws):
     rows = list(ws.rows)
@@ -114,6 +114,8 @@ def getData(ws):
     return rowsDict, columnsDict
 
 
+attendance = {}
+
 try:
     print("Webcam is running. You can now show your QR Code to the webcam.")
     print("--------------------ATTENDANCE_LOG--------------------")
@@ -128,7 +130,7 @@ try:
             attendance.setdefault(date, {})
             if name not in attendance[date]:
                 print(date, time, name)
-            attendance[date][name] = time
+                attendance[date][name] = time
 
             pts = np.array([qrcode.polygon], np.int32)
             pts = pts.reshape((-1, 1, 2))
