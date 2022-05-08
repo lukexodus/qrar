@@ -1,0 +1,7 @@
+SUBJECT:
+Logged in at [time] [date] | GARSHS Attendance
+BODY:
+You have attended class for [streak] times.
+Keep it up!
+
+"[daily_quote]"
