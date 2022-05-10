@@ -1,6 +1,6 @@
 from __future__ import division, print_function
 import pytest
-import qrcode_attendance
+import qrar
 
 
 def test_basic():

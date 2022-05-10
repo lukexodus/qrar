@@ -7,7 +7,7 @@ scriptFolder = os.path.dirname(os.path.realpath(__file__))
 os.chdir(scriptFolder)
 
 # Find version info from module (without importing the module):
-with open("src/qrcode_attendance/__init__.py", "r") as fileObj:
+with open("src/qrar/__init__.py", "r") as fileObj:
     version = re.search(
         r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]', fileObj.read(), re.MULTILINE
     ).group(1)
@@ -17,9 +17,9 @@ with io.open("README.md", encoding="utf-8") as fileObj:
     long_description = fileObj.read()
 
 setup(
-    name="qrcode_attendance",
+    name="qrar",
     version=version,
-    url="https://github.com/shiideyuuki/qrcode_attendance",
+    url="https://github.com/shiideyuuki/qrar",
     author="Adrian Luke Labasan",
     author_email="zionexodus7@protonmail.com",
     description=("""A python program which automates attendance recording by transfering decoded data from qrcodes to a spreadsheet (excel)."""),

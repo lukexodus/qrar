@@ -1,4 +1,4 @@
-qrcode_attendance
+qrar
 ======
 
 A python program which automates attendance recording by transfering decoded data from QR codes to an excel file and a Google sheet, with email notification feature.
@@ -8,13 +8,13 @@ Installation
 
 To install with pip, run:
 
-    pip install qrcode_attendance
+    pip install qrar
 
 Quickstart Guide
 ----------------
 
 # Instructions #
-1) Place the excel file at the same directory as the program (qrcode_attendance.py).
+1) Place the excel file at the same directory as the program (qrar.py).
 2) If first used, the excel file should be completely blank i.e. no data added.
 3) Press Ctrl+C to end the program.
 4) If you would like to change the layout of the excel file, please notify the programmer.
@@ -43,4 +43,4 @@ Quickstart Guide
 Contribute
 ----------
 
-If you'd like to contribute to qrcode_attendance, check out https://github.com/shiideyuuki/qrcode_attendance
+If you'd like to contribute to qrar, check out https://github.com/shiideyuuki/qrar

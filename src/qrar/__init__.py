@@ -1,6 +1,6 @@
-"""qrcode_attendance
+"""qrar
 By Adrian Luke Labasan zionexodus7@protonmail.com
 
 A python program which automates attendance recording by transfering decoded data from qrcodes to a spreadsheet (excel)."""
 
-__version__ = '0.2.0'
+__version__ = '0.3.0'

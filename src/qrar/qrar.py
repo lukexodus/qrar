@@ -62,7 +62,7 @@ r"""
 print("""
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       ??? INSTRUCTIONS ???
-1) Place the excel file at the same directory as the program (qrcode_attendance.py).
+1) Place the excel file at the same directory as the program (qrar.py).
 2) If first used, the excel file should be completely blank i.e. no data added.
 3) Press Ctrl+C to end the program.
 4) If you would like to change the layout of the excel file, please notify the programmer.

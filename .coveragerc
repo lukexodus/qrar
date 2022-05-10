@@ -1,6 +1,6 @@
 # .coveragerc to control coverage.py
 
-# To run coverage tests, run `coverage run tests/test_qrcode_attendance.py` then `coverage html`. The report will be in  htmlconv/index.html
+# To run coverage tests, run `coverage run tests/test_qrar.py` then `coverage html`. The report will be in  htmlconv/index.html
 
 
 
