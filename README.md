@@ -1,18 +1,26 @@
 # qrar
-======
 (QR code Attendance Recorder)
 
 QR code based attendance recording program. Stores data to Excel and Google Sheets (real time), with email notification feature.
 
-Installation
-------------
-
-To install with pip, run:
-
-    pip install qrar
-
 Quickstart Guide
 ----------------
+Installing dependencies:
+```
+pip install cv2==4.5.5
+pip install pyzbar==0.1.8
+pip install numpy==1.19.5
+pip install openpyxl==2.6.1
+pip install pyinputplus==0.2.12
+pip install ezsheets==2021.08.05
+pip install ezgmail==2022.02.24
+```
+
+Running the program:
+```
+cd path/to/qrar.py
+python qrar.py
+```
 
 ## Instructions
 1) Place the excel file at the same directory as the program (qrar.py).
