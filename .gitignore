@@ -123,6 +123,19 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+src/qrar/*.xlsx
+src/qrar/.mypy_cache
+src/qrar/log.txt
+src/qrar/*.bak
+src/qrar/*.dat
+src/qrar/*.dir
+src/qrar/credentials.json
+src/qrar/credentials-sheets.json
+src/qrar/token.json
+src/qrar/token-drive.pickle
+src/qrar/token-sheets.pickle
+src/qrar/.vscode/
+
 src/qrcode_attendance/*.xlsx
 src/qrcode_attendance/.mypy_cache
 src/qrcode_attendance/log.txt
