@@ -1,8 +1,8 @@
-qrar
+# qrar
 ======
 (QR code Attendance Recorder)
 
-QR code based attendance recording program. Stores data to Excel, Google Sheets (real time), and with email notification feature.
+QR code based attendance recording program. Stores data to Excel and Google Sheets (real time), with email notification feature.
 
 Installation
 ------------
@@ -14,13 +14,13 @@ To install with pip, run:
 Quickstart Guide
 ----------------
 
-# Instructions #
+## Instructions
 1) Place the excel file at the same directory as the program (qrar.py).
 2) If first used, the excel file should be completely blank i.e. no data added.
 3) Press Ctrl+C to end the program.
 4) If you would like to change the layout of the excel file, please notify the programmer.
 
-# Note #
+## Note
 1) The program only records the initial time a qrcode is scanned during the day.
 2) The order of the names are based on the time the qrcodes are first scanned. If you would like to sort the names alphabetically (ex. by sections), you can do so in Excel: [(Select data range by row) -> 'Data' tab -> 'SORT']. You can also do this in Google Sheets: [(Select data range by row) -> 'Data' tab -> 'Sort range'] but you don't have to since the program will automatically updates the changes in the local database to the online databse
 3) The program reduces the row and column counts in the online spreadsheet to make the read/write process faster. The program will automatically increase the row and column counts as the data grows.
@@ -29,7 +29,7 @@ Quickstart Guide
    b) You can only use the email notification function after you had added the emails of the members. However, you can only add the members' email and phone number after the xlsx file is initialized (if already created by the user or by the program).
    c) The program only sends email to those whose email is added to the xlsx file.
 
-# Warning #
+## Warning
 1) Don't manipulate the excel file while the program is running.
 2) Before running the program, ensure that:
    a) The excel file is closed.
