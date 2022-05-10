@@ -1,7 +1,7 @@
 SUBJECT:
-Logged in at [time] [date] | GARSHS Attendance
+Logged in at <TIME> on <DATE> at GARSHS
 BODY:
-You have attended class for [streak] times.
+You have attended class for <STREAK> times.
 Keep it up!
 
-"[daily_quote]"
+"<DAILYQUOTE>"
