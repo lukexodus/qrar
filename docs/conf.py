@@ -153,7 +153,7 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
     (master_doc, 'qrar', 'qrar Documentation',
-     author, 'qrar', 'A python program which automates attendance recording by transfering decoded data from qrcodes to a spreadsheet (excel).',
+     author, 'qrar', 'QR code based attendance recording program. Stores data to Excel, Google Sheets (real time), and with email notification feature.',
      'Miscellaneous'),
 ]
 

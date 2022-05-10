@@ -13,6 +13,8 @@ from typing import List, Dict, Mapping, Tuple, Union, Optional, Any
 import random
 import re
 import collections
+import smtplib
+from ssl import SSLEOFError, SSLError
 
 import cv2
 import numpy as np
@@ -24,11 +26,9 @@ import pyinputplus
 import ezsheets
 from ezsheets import getColumnLetterOf, getColumnNumberOf
 from ezsheets import EZSheetsException
-import smtplib
 import httplib2
 import pyinputplus as pyip
 from google.auth.exceptions import TransportError
-from ssl import SSLEOFError, SSLError
 
 from quotes import strippedQuotes as quotes
 

@@ -1,7 +1,8 @@
 qrar
 ======
+(QR code Attendance Recorder)
 
-A python program which automates attendance recording by transfering decoded data from QR codes to an excel file and a Google sheet, with email notification feature.
+QR code based attendance recording program. Stores data to Excel, Google Sheets (real time), and with email notification feature.
 
 Installation
 ------------

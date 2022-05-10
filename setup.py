@@ -22,7 +22,7 @@ setup(
     url="https://github.com/shiideyuuki/qrar",
     author="Adrian Luke Labasan",
     author_email="zionexodus7@protonmail.com",
-    description=("""A python program which automates attendance recording by transfering decoded data from qrcodes to a spreadsheet (excel)."""),
+    description=("""QR code based attendance recording program. Stores data to Excel, Google Sheets (real time), and with email notification feature."""),
     long_description=long_description,
     long_description_content_type="text/markdown",
     license="MIT",
@@ -30,7 +30,7 @@ setup(
     package_dir={"": "src"},
     test_suite="tests",
     install_requires=[],
-    keywords="",
+    keywords="qr code attendance excel google sheet gmail",
     classifiers=[
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python",
