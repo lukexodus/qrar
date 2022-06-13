@@ -123,6 +123,7 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# qrar
 src/qrar/*.xlsx
 src/qrar/.mypy_cache
 src/qrar/log.txt
@@ -135,3 +136,6 @@ src/qrar/token.json
 src/qrar/token-drive.pickle
 src/qrar/token-sheets.pickle
 src/qrar/.vscode/
+
+# Pycharm created files
+.idea

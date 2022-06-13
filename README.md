@@ -7,7 +7,7 @@ Quickstart Guide
 ----------------
 Installing dependencies:
 ```
-pip install cv2==4.5.5
+pip install opencv-python
 pip install pyzbar==0.1.8
 pip install numpy==1.19.5
 pip install openpyxl==2.6.1
