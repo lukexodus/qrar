@@ -449,11 +449,11 @@ NOTE: Always connect to the internet if you plan to use the email notification f
 
     # Checks if there are manual changes to the worksheet
     # and if there are, syncs the changes to the online database
+    wb = openpyxl.load_workbook(excelFilename)
+    ws = wb.active
+    activeCellsObjects = ws['A1':f'{get_column_letter(ws.max_column)}{ws.max_row}']
+    activeCellsText: List[list] = [[cell.value for cell in row] for row in activeCellsObjects]
     if not noInitialFile and useOnlineDatabase and uploadedToGoogleSheets:
-        wb = openpyxl.load_workbook(excelFilename)
-        ws = wb.active
-        activeCellsObjects = ws['A1':f'{get_column_letter(ws.max_column)}{ws.max_row}']
-        activeCellsText: List[list] = [[cell.value for cell in row] for row in activeCellsObjects]
         logging.info(
             f"activeCellsText: List[list] = [[cell.value for cell in row] for row in activeCellsObjects] = {activeCellsText}")
         onlineDatabaseCompatibleActiveCellsText = [[' ' if cell.value is None else cell.value for cell in row] for row
@@ -516,7 +516,8 @@ NOTE: Always connect to the internet if you plan to use the email notification f
         """ else:
             activeCellsText: List[list] = [[]] """
 
-        # Put the emails and the phone numbers into a separate collection
+    # Put the emails and the phone numbers into a separate collection
+    if useEmailNotif:
         if not ws.max_column < 2:
             emailsAndPhoneNums = collections.defaultdict(list)
             for i in range(2, len(activeCellsText)):
@@ -524,26 +525,26 @@ NOTE: Always connect to the internet if you plan to use the email notification f
                 phoneTemp = activeCellsText[i][2] if activeCellsText[i][2] is not None else ''
                 emailsAndPhoneNums[activeCellsText[i][0]] = [emailTemp, phoneTemp]
 
-        # Gets the max_row and max_column of the worksheet
-        # to be used later when updating the cells to the online database
-        def getApparentMaxCol(ws):
-            wsCols = ws.columns
-            colItemsNum = ws.max_row
-            for i in range(len(wsCols) - 1, -1, -1):
-                for j in range(len(colItemsNum)):
-                    if wsCols[i][j] != '':
-                        return i + 1
+    # Gets the max_row and max_column of the worksheet
+    # to be used later when updating the cells to the online database
+    def getApparentMaxCol(ws):
+        wsCols = list(ws.columns)
+        colItemsNum = ws.max_row
+        for i in range(len(wsCols) - 1, -1, -1):
+            for j in range(colItemsNum):
+                if wsCols[i][j] != '':
+                    return i + 1
 
-        def getApparentMaxRow(ws):
-            wsRows = ws.rows
-            rowItemsNum = ws.max_column
-            for i in range(len(wsRows) - 1, -1, -1):
-                for j in range(len(rowItemsNum)):
-                    if wsRows[i][j] != '':
-                        return i + 1
+    def getApparentMaxRow(ws):
+        wsRows = list(ws.rows)
+        rowItemsNum = ws.max_column
+        for i in range(len(wsRows) - 1, -1, -1):
+            for j in range(rowItemsNum):
+                if wsRows[i][j] != '':
+                    return i + 1
 
-        wsMaxRow, wsMaxCol = getApparentMaxRow(ws), getApparentMaxCol(ws)
-        wb.save(excelFilename)
+    # wsMaxRow, wsMaxCol = getApparentMaxRow(ws), getApparentMaxCol(ws)
+    wb.save(excelFilename)
 
     # Opens the webcam to scan QR codes
     print("\nOpening the webcam... please wait\n")
@@ -593,7 +594,8 @@ try:
                 attendance[date][name] = clockTime
                 streak.setdefault(name, 0)
                 streak[name] += 1
-                emailsAndPhoneNums.setdefault(name, [None, None])
+                if useEmailNotif:
+                    emailsAndPhoneNums.setdefault(name, [None, None])
 
                 # Real-time upload of data to the online database
                 if useOnlineDatabase and uploadedToGoogleSheets:
@@ -610,12 +612,12 @@ try:
                                         maxCol = sheet1.getMaxCol(row2)
                                         # Changes the column count of the online sheet if the added changes
                                         # in the workseet exceeds the available spaces in it
-                                        logging.info(f'wsMaxCol = {wsMaxCol}')
-                                        logging.info(f'maxCol = {maxCol}')
-                                        if wsMaxCol != maxCol and not changedColumnCount:
-                                            # FIXME
-                                            sheet1.sheet.columnCount = wsMaxCol + EXTRA_COLUMNS
-                                            changedColumnCount = True
+                                        # logging.info(f'wsMaxCol = {wsMaxCol}')
+                                        # logging.info(f'maxCol = {maxCol}')
+                                        # if wsMaxCol != maxCol and not changedColumnCount:
+                                        #     # FIXME
+                                        #     sheet1.sheet.columnCount = wsMaxCol + EXTRA_COLUMNS
+                                        #     changedColumnCount = True
 
                                         # Adds the new date in the online sheet
                                         nextToMaxCol = maxCol + 1
@@ -628,13 +630,13 @@ try:
                                 if not nameInRowHeadersBool:
                                     # Changes the row count of the online sheet if the added changes
                                     # in the workseet exceeds the available spaces in it
-                                    maxRow = sheet1.getMaxRow(col1)
-                                    logging.info(f'wsMaxRow = {wsMaxRow}')
-                                    logging.info(f'maxRow = {maxRow}')
-                                    if wsMaxRow != maxRow and not changedRowCount:
-                                        # FIXME
-                                        sheet1.sheet.rowCount = wsMaxRow + EXTRA_ROWS
-                                        changedRowCount = True
+                                    # maxRow = sheet1.getMaxRow(col1)
+                                    # logging.info(f'wsMaxRow = {wsMaxRow}')
+                                    # logging.info(f'maxRow = {maxRow}')
+                                    # if wsMaxRow != maxRow and not changedRowCount:
+                                    #     # FIXME
+                                    #     sheet1.sheet.rowCount = wsMaxRow + EXTRA_ROWS
+                                    #     changedRowCount = True
 
                                     # Adds the new name
                                     rowNum = sheet1.findFirstBlankRow(col1)

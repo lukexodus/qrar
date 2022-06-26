@@ -137,6 +137,7 @@ src/qrar/token-drive.pickle
 src/qrar/token-sheets.pickle
 src/qrar/.vscode/
 src/qrar/credentialsBackup
+src/qrar/quickstart.py
 
 # Pycharm created files
 .idea
