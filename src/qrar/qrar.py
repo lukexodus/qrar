@@ -525,6 +525,9 @@ NOTE: Always connect to the internet if you plan to use the email notification f
                 phoneTemp = activeCellsText[i][2] if activeCellsText[i][2] is not None else ''
                 emailsAndPhoneNums[activeCellsText[i][0]] = [emailTemp, phoneTemp]
 
+    # wsMaxRow, wsMaxCol = getApparentMaxRow(ws), getApparentMaxCol(ws)
+    wb.save(excelFilename)
+    
     # Gets the max_row and max_column of the worksheet
     # to be used later when updating the cells to the online database
     def getApparentMaxCol(ws):
@@ -539,12 +542,9 @@ NOTE: Always connect to the internet if you plan to use the email notification f
         wsRows = list(ws.rows)
         rowItemsNum = ws.max_column
         for i in range(len(wsRows) - 1, -1, -1):
-            for j in range(rowItemsNum):
+            for j in range(rowItemsNum):2
                 if wsRows[i][j] != '':
                     return i + 1
-
-    # wsMaxRow, wsMaxCol = getApparentMaxRow(ws), getApparentMaxCol(ws)
-    wb.save(excelFilename)
 
     # Opens the webcam to scan QR codes
     print("\nOpening the webcam... please wait\n")
